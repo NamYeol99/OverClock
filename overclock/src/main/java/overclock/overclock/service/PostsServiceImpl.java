@@ -101,6 +101,21 @@ public class PostsServiceImpl implements PostsService {
     }
 
     @Override
+    public PageResultDTO<PostsDTO, Posts> getMyPostsList(PageRequestDTO dto) {
+        log.info("PageRequestDTO: " + dto);
+        Pageable pageable = dto.getPageable(Sort.by("id").descending());
+        Page<Posts> result = repository.getPartsByCategoryPageList(pageable, dto.getCategory());
+        log.info("result2 : {}", result);
+        Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
+            @Override
+            public PostsDTO apply(Posts t) {
+                return entityToDTO(t);
+            }
+        };
+        return new PageResultDTO<>(result, fn);
+    }
+
+    @Override
     public PageResultDTO<PostsDTO, Posts> partsCategoryPageList (PageRequestDTO dto){
         log.info("PageRequestDTO: " + dto);
         Pageable pageable = dto.getPageable(Sort.by("id").descending());
@@ -189,6 +204,8 @@ public class PostsServiceImpl implements PostsService {
         log.info(cardInfo);
         return cardInfo;
     }
+
+
 
     @Override
     public String PostsModify(PostsDTO dto) {

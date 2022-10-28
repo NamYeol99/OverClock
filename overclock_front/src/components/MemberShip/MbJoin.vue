@@ -106,7 +106,7 @@ export default {
         state.email.value.focus();
         return false;
       }
-      const url = "/api/passFind";
+      const url = "./api/passFind";
       const headers = {
         "Content-Type": "application/json",
       };
@@ -123,7 +123,7 @@ export default {
           console.log(typeof (res.data));
           alert("입력하신 이메일로 인증번호가 발송되었습니다.");
           document.getElementById('email').readOnly = true;
-          axios.post("/api/join/emailCheck", body, { headers }).then(function (res) {
+          axios.post("./api/join/emailCheck", body, { headers }).then(function (res) {
             console.log("---------------------------");
             console.log(res);
             console.log(res.data.keys);
@@ -152,7 +152,7 @@ export default {
       })
     }
     const nickCheckHandler = async () => {
-      const url = '/api/nickVali'
+      const url = './api/nickVali'
       const headers = { "Content-Type": "application/json" }
       const body = { nickname: state.nickname }
       const response = await axios.post(url, body, { headers })
@@ -164,7 +164,7 @@ export default {
     }
 
     const emailVali = async () => {
-      const url = "/api/emailVali"
+      const url = "./api/emailVali"
       const headers = { "Content-Type": "application/json; charset=utf-8;" }
       console.log(state.email)
       console.log("===============")
@@ -189,7 +189,7 @@ export default {
 
     const phoneCheck = async () => {
 
-      const url = '/api/phoneVali'
+      const url = './api/phoneVali'
       const headers = { "Content-Type": "application/json" }
       const body = { phone: state.phone }
       await axios.post(url, body, { headers }).then(function (res) {

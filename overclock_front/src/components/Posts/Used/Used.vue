@@ -127,7 +127,7 @@ export default {
 
       });
 
-      const url = "/api/getlist";
+      const url = "./api/getlist";
       const headers = {
         "Content-Type": "application/json; charset=utf-8",
       "Authorization": store.state.token,
@@ -168,12 +168,7 @@ export default {
                   console.log(i + "번쨰");
                   console.log(store.state.img[i]);
                 }
-                // console.log(state.dtoList[i].title);
               }
-
-
-      // console.log(store.state.img);
-      // console.log("asd");
           showResult(res.data);
       });
       const showResult = async (arr) => {
@@ -189,7 +184,7 @@ export default {
     category:"used"
   }
 
-  axios.post("/api/partsItemList", body, {headers}).then(function(res){
+  axios.post("./api/partsItemList", body, {headers}).then(function(res){
     store.state.price = res.data[0].price;
   })
 
@@ -198,7 +193,7 @@ export default {
     store.commit("setPrice", ...[state.price[i]]);
 
       //조회수 처리
-      const url2 = `/api/read/${list.id}`;
+      const url2 = `./api/read/${list.id}`;
 	    const headers2 = {
 	      "Content-Type": "application/json; charset=utf-8"
 	    };

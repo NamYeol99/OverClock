@@ -2,27 +2,23 @@ package overclock.overclock.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import overclock.overclock.dto.*;
-import overclock.overclock.entity.Cart;
-import overclock.overclock.entity.Comment;
-import overclock.overclock.entity.EmbedCard;
-import overclock.overclock.entity.Item;
-import overclock.overclock.entity.Posts;
+import overclock.overclock.entity.*;
 import overclock.overclock.model.search;
-import overclock.overclock.repository.PostsRepository;
+import overclock.overclock.repository.MemberRepository;
 import overclock.overclock.service.*;
 
 import java.util.*;
 
 @RestController
 @Log4j2
-@RequestMapping("/api/")
+@RequestMapping("api/")
 @RequiredArgsConstructor
 public class ApiController {
     private final PostsService postsService;
@@ -494,6 +490,28 @@ public class ApiController {
         return json;
     }
 
+    /**
+     * 관리자 전체 회원 조회
+     * @return
+     */
+    @RequestMapping(value = "/adminMem", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashMap<String, Object>> getAllUser(){
+        HashMap<String, Object> result = memberService.getAllUser();
+        log.info("List result : {}", result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    /**
+     * 관리자 회원 검색
+     */
+    @RequestMapping(value = "/searchMember", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashMap<String, Object>> MemberSearch(@RequestBody search vo) {
+        log.info("------------------------------------memberSearch--------------------");
+        log.info(vo);
+        return new ResponseEntity<>(memberService.getMemberSearch(vo), HttpStatus.OK);
+    }
 }
 
 

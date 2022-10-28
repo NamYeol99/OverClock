@@ -32,7 +32,7 @@
 // @ is an alias to /src
 
 import Cards from "@/components/MainCards.vue";
-import store from "@/store";
+// import store from "@/store";
 import {reactive} from "@vue/reactivity";
 import axios from "axios";
 import {useRouter} from "vue-router/dist/vue-router";
@@ -91,7 +91,7 @@ export default {
 
     //getCards
     async function getCardsInformation(){
-      const url= "/api/search"
+      const url= "./api/search"
       const headers = {
         "Content-Type": "application/json; charset=utf-8",
       }
@@ -133,45 +133,45 @@ export default {
       })
     }
 
-    async function view (){
-      state.reqPage=0
-      await router.push(`${store.state.axiosLink}/search?cards=${searchword}&order=view`);
+    // async function view (){
+    //   state.reqPage=0
+    //   await router.push(`${store.state.axiosLink}/search?cards=${searchword}&order=view`);
+    //   getCardsInformation()
+    // }
+
+    // async function latest(){
+    //   state.reqPage=0
+    //   await router.push(`${store.state.axiosLink}/search?cards=${searchword}&order=new`);
+    //   getCardsInformation()
+    // }
+
+    // async function star(){
+    //   state.reqPage=0
+    //   await router.push(`${store.state.axiosLink}/search?cards=${searchword}&order=star`);
+    //   getCardsInformation()
+    // }
+
+    // async function like(){
+    //   state.reqPage=0
+    //   await router.push(`${store.state.axiosLink}/search?cards=${searchword}&order=like`);
+    //   getCardsInformation()
+    // }
+
+    // function getMoreCards(){
+    //   state.reqPage+=1
+    //   getCardsInformation()
+    // }
+
+    // window.addEventListener("scroll", windowSize)
+    // function windowSize(){
+    //   if(window.innerHeight+window.scrollY>=document.body.offsetHeight){
+    //     getMoreCards()
+    //   }
+    // }
+
       getCardsInformation()
-    }
 
-    async function latest(){
-      state.reqPage=0
-      await router.push(`${store.state.axiosLink}/search?cards=${searchword}&order=new`);
-      getCardsInformation()
-    }
-
-    async function star(){
-      state.reqPage=0
-      await router.push(`${store.state.axiosLink}/search?cards=${searchword}&order=star`);
-      getCardsInformation()
-    }
-
-    async function like(){
-      state.reqPage=0
-      await router.push(`${store.state.axiosLink}/search?cards=${searchword}&order=like`);
-      getCardsInformation()
-    }
-
-    function getMoreCards(){
-      state.reqPage+=1
-      getCardsInformation()
-    }
-
-    window.addEventListener("scroll", windowSize)
-    function windowSize(){
-      if(window.innerHeight+window.scrollY>=document.body.offsetHeight){
-        getMoreCards()
-      }
-    }
-
-      getCardsInformation()
-
-  return {state, view, latest, star, like, searchingAxios ,search}
+  return {state, searchingAxios ,search}
   },
 };
 </script>

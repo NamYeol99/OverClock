@@ -1,18 +1,13 @@
 package overclock.overclock.repository;
 
-import com.querydsl.core.BooleanBuilder;
-import lombok.ToString;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import overclock.overclock.dto.ItemImgDTO;
-import overclock.overclock.dto.PostsDTO;
+import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
 
 import java.util.List;
@@ -68,6 +63,7 @@ public interface PostsRepository extends JpaRepository<Posts, String > {
     List<String> getPostsDetail(Long id);
 
 
+
     public interface getEmbedCardsInformation {
         Long getId();
 
@@ -85,6 +81,8 @@ public interface PostsRepository extends JpaRepository<Posts, String > {
         String getImgName();
         String getImgPath();
         String getView();
+        String getEmail();
+        String getName();
 
     }
 

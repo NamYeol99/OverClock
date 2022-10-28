@@ -1,5 +1,8 @@
 package overclock.overclock.repository;
 
+import lombok.ToString;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -63,6 +67,25 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("select m.crn from Member m where m.email=:email")
     int findByCrn(String email);
 
+    @Query(value = "SELECT m.id as id, m.name as name, m.email as email, m.nickname as nickname " +
+            "FROM Member m ")
+    Optional<List<getEmbedCardsInformation>> getAllUser();
 
+    @Query(value = "SELECT m.name as name, m.email as email, m.nickname as nickname, m.id as id " +
+            "FROM Member m " +
+            "WHERE m.email LIKE CONCAT('%',:search,'%') ")
+    Optional<List<MemberRepository.getEmbedCardsInformation>> getMemberSearch(String search);
+
+    @Query(value = "SELECT m.email as email, m.name as name, m.nickname as nickname, m.id as id " +
+            "FROM Member m " +
+            "where m.email LIKE CONCAT('%',:search,'%') ")
+    Page<Member> getListAndAuthorByEmailPage(String search, Pageable pageable);
+    public interface getEmbedCardsInformation {
+        Long getId();
+        String getEmail();
+        String getName();
+        String getNickname();
+
+    }
 
 }

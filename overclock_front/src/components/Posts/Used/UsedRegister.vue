@@ -71,7 +71,7 @@ export default {
             }
             document.querySelector(".box").innerHTML = str
 
-            const url = '/register/posting'
+            const url = './register/posting'
             const headers = {
                 "Content-Type": "application/json",
                 "Authorization": store.state.token

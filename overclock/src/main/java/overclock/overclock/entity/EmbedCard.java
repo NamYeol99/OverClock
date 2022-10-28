@@ -2,6 +2,7 @@ package overclock.overclock.entity;
 
 import lombok.Data;
 import overclock.overclock.dto.ItemImgDTO;
+import overclock.overclock.repository.MemberRepository;
 import overclock.overclock.repository.PostsRepository;
 
 import java.nio.charset.Charset;
@@ -13,7 +14,6 @@ public class EmbedCard {
     private Long id;
     private String title;
     private String content;
-
     private String price;
     private String nickname;
     private String imgUuid;

@@ -2,25 +2,34 @@ package overclock.overclock.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import overclock.overclock.dto.MemberDTO;
 import overclock.overclock.dto.PostsDTO;
+import overclock.overclock.entity.EmbedCard2;
 import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
 import overclock.overclock.model.MemberRole;
+import overclock.overclock.model.search;
 import overclock.overclock.repository.MemberRepository;
+import overclock.overclock.repository.PostsRepository;
 
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Log4j2
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
+    private final PostsRepository postsRepository;
     private final PasswordEncoder encoder;
+    private static Map<Long, Member> store = new HashMap<>();
     @Transactional //회원가입
     public Long memberRegister(MemberDTO memberDTO) {
         memberDTO.setPassword(encoder.encode(memberDTO.getPassword()));
@@ -190,5 +199,35 @@ public class MemberServiceImpl implements MemberService {
         else {
             return true;
         }
+    }
+
+    @Override
+    public HashMap<String, Object> getAllUser() {
+        List<EmbedCard2> result = memberRepository.getAllUser().get().stream().map(v->{
+            return new EmbedCard2(v);
+        }).collect(Collectors.toList());
+        HashMap<String, Object> cardInfo = new HashMap<>();
+        cardInfo.put("members", result);
+        log.info("allUser result : {}", result);
+        return cardInfo;
+    }
+
+    @Override
+    public HashMap<String, Object> getMemberSearch(search vo) {
+        log.info("getMemberSearch vo : {}", vo);
+        Pageable pageable = PageRequest.of(vo.getReqPage(), 9);
+        Page<Member> page = memberRepository.getListAndAuthorByEmailPage(vo.getSearch(), pageable);
+        log.info("=====page======");
+        log.info(page);
+        List<EmbedCard2> result = memberRepository.getMemberSearch(vo.getSearch()).get().stream().map(v -> {
+            return new EmbedCard2(v);
+        }).collect(Collectors.toList());
+        log.info("result : {}", result);
+        HashMap<String, Object> cardInfo = new HashMap<>();
+        cardInfo.put("members", result);
+        cardInfo.put("page", pageable.getPageNumber());
+        cardInfo.put("pageTotalCount", page.getTotalPages());
+        log.info(cardInfo);
+        return cardInfo;
     }
 }

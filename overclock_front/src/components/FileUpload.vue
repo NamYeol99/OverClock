@@ -67,7 +67,7 @@ export default {
       //전송할 파일이 있으면 목록 보기.It there are files to transfer,show list.
       for(let value of formData.values()) console.log(value)
       
-      const url = '/api/uploadAjax/'
+      const url = './api/uploadAjax/'
       await axios.post(url, formData, {
         headers: {
           "Content-Type" : "multipart/form-data",
@@ -84,7 +84,7 @@ export default {
       const uploadUL = upResult.value;
       console.log("arr");
       console.log(arr);
-      const displayUrl = '/display'
+      const displayUrl = '/overclock/display'
       const url = `http://localhost:9090${displayUrl}`
       let str = ""
       for(let i=0;i<arr.length;i++){

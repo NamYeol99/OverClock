@@ -21,6 +21,7 @@ public interface PostsService {
 
     Long posting(PostsDTO dto); // 게시판 글쓰기
     PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto); //일반 게시판 리스트
+    PageResultDTO<PostsDTO, Posts> getMyPostsList(PageRequestDTO dto); //내가 쓴 글 리스트
 
     PageResultDTO<PostsDTO, Posts>  partsCategoryPageList (PageRequestDTO dto); //부품,주변기기 게시판 리스트
     PostsDTO updateView(Long id); //조회수 처리
@@ -30,6 +31,7 @@ public interface PostsService {
     Long PostsDelete(PostsDTO dto);
     HashMap<String, Object> periDetail(PostsDTO id);
     List<String> postsDetail(PostsDTO dto);
+
 
     default Posts dtoToEntity(PostsDTO dto) {
         Member member = Member.builder()

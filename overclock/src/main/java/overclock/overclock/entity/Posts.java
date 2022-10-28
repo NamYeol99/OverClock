@@ -1,9 +1,11 @@
 package overclock.overclock.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Fetch;
 import overclock.overclock.model.Address;
 import overclock.overclock.model.BoardType;
 import overclock.overclock.model.PartsType;
@@ -29,6 +31,7 @@ public class Posts extends BaseEntity{ //게시물
     private Long id;
     @Enumerated
     private BoardType boardType;
+
     @ManyToOne
     private Member member;
     private String title; //제목

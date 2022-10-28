@@ -52,7 +52,7 @@ export default {
       //   email.value.focus();
       //   return false;
       // }
-      const url = "/api/passFind/email";
+      const url = "./api/passFind/email";
       const headers = {
         "Content-Type": "application/json",
       };
@@ -66,7 +66,7 @@ export default {
           console.log(state.email);
           console.log(res.data);
           alert("입력하신 이메일로 임시 비밀번호가 발송되었습니다.");
-          axios.post("/api/passFind/send", body, { headers }).then(function (res) {
+          axios.post("./api/passFind/send", body, { headers }).then(function (res) {
             console.log("---------------------------");
             console.log(res);
             console.log(res.data.tempPass);
